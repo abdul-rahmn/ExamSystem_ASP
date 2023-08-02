@@ -1,0 +1,122 @@
+﻿@model IEnumerable<ExamsSystem.Models.Result>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<h1>Index</h1>
+*@
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+    @*<a asp-action="ClearAll" asp-controller="UserAnswers" class="btn btn-danger">Clear All</a>*@
+</p>
+<h2>@ViewBag.coursee</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Student
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Course)
+            </th>*@
+            <th>True</th>
+            <th>False</th>
+            <th>Average</th>
+            <th>Mark</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                    @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountTrue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountFalse)
+                </td>
+                <td>
+                    @if (item.Average >= 90.0 && item.Average <= 100.0)
+                    {
+                        <span style="font-size:large;color:gold;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average >= 80.0 && item.Average <= 89.0)
+                    {
+                        <span style="font-size:large;color:gold;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average >= 75.0 && item.Average <= 79.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average >= 70.0 && item.Average <= 74.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average >= 65.0 && item.Average <= 69.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average >= 60.0 && item.Average <= 64.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average >= 50.0 && item.Average <= 59.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+                    @if (item.Average <= 49.0)
+                    {
+                        <span style="font-size:large;color:red;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight:bold">@item.Average</span>
+                    }
+
+                    @*@Html.DisplayFor(modelItem => item.Average)*@
+                </td>
+                <td>
+                    @if (item.Average >= 90.0 && item.Average <= 100.0)
+                    {
+                        <span style="font-size:large;color:gold; font-family:Arial; font-weight:bolder"> A+</span>
+                    }
+                    @if (item.Average >= 80.0 && item.Average <= 89.0)
+                    {
+                        <span style="color:gold;font-family:Arial; font-weight:bolder"> A</span>
+                    }
+                    @if (item.Average >= 75.0 && item.Average <= 79.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:Arial; font-weight:bolder"> B+</span>
+                    }
+                    @if (item.Average >= 70.0 && item.Average <= 74.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:Arial; font-weight:bolder"> B</span>
+                    }
+                    @if (item.Average >= 65.0 && item.Average <= 69.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:Arial; font-weight:bolder"> C+</span>
+                    }
+                    @if (item.Average >= 60.0 && item.Average <= 64.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:Arial; font-weight:bolder"> C</span>
+                    }
+                    @if (item.Average >= 50.0 && item.Average <= 59.0)
+                    {
+                        <span style="font-size:large;color:green;font-family:Arial; font-weight:bolder">D</span>
+                    }
+                    @if (item.Average <= 49.0)
+                    {
+                        <span style="font-size:large;color:red;font-family:Arial; font-weight:bolder">F</span>
+                    }
+
+                    @*@Html.DisplayFor(modelItem => item.Average)*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Index" class="btn btn-outline-info">Back to Exams</a>

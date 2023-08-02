@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ExamsSystem.Models.Question>
+@{
+    int index = 1;
+}
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Test">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            @foreach (var item in Model)
+            {
+                <p style="font-size:large;"><b style="padding:3px; border-left:groove;border-right:groove;border:groove;border-bottom-left-radius:inherit"> @(index++) </b>- @item.Question1</p>
+
+                @if (!(@item.Option1 == "" || @item.Option1==null))
+                {
+                    <div style="margin-left:50px; font-size:large" class="form-check">
+                        <input type="radio" style="font-size:larger" name="@item.Id" value="@item.Option1" class="form-check-input" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault"><b>A. </b>@item.Option1</label>
+                    </div>
+                }
+                @if (!(@item.Option2 == "" || @item.Option2 == null))
+                {
+                    <div style="margin-left:50px; font-size:large" class="form-check">
+                        <input type="radio" style="font-size:larger" name="@item.Id" value="@item.Option2" class="form-check-input" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault"><b>B. </b>@item.Option2</label>
+                    </div>
+                }
+                @if (!(@item.Option3 == "" || @item.Option3 == null))
+                {
+                    <div style="margin-left:50px; font-size:large" class="form-check">
+                        <input type="radio" style="font-size:larger" name="@item.Id" value="@item.Option3" class="form-check-input" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault"><b>C. </b>@item.Option3</label>
+                    </div>
+                }
+                @if (!(@item.Option4 == "" || @item.Option4 == null))
+                {
+                    <div style="margin-left:50px; font-size:large" class="form-check">
+                        <input type="radio" style="font-size:larger" name="@item.Id" value="@item.Option4" class="form-check-input" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault"><b>D. </b>@item.Option4</label>
+                    </div>
+                }       
+                <br />
+                <hr />
+                <br />
+            }
+            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+            {
+                <a asp-action="Index" asp-controller="Exams" class="btn btn-outline-success"> Back </a>
+            }else{
+                    <input type="submit" value="submit" class="btn btn-outline-success " />
+            }  
+            <br />
+        </form>
+    </div>
+</div>

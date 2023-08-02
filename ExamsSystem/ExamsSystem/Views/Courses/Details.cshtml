@@ -1,0 +1,54 @@
+﻿@model ExamsSystem.Models.Course
+
+@{
+    ViewData["Title"] = "Details";
+    int index = 1;
+}
+
+<h1><span style="font-weight:bold; color:darkgoldenrod">@Model.CourseName</span> Course</h1>
+<h6>Created By: <span style="font-weight:bold; color:green">@ViewBag.un.FirstName @ViewBag.un.LastName</span></h6>
+
+@*<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CourseName)
+        </dd>
+    </dl>
+</div>*@
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-success">Edit</a> |
+    <a asp-action="Index" class="btn btn-outline-info">Back to List</a>
+</div>
+<hr />
+
+<h3>Questions in <span style="font-weight:bold; color:darkgoldenrod">@Model.CourseName</span> Course</h3>
+<p>
+    <a asp-action="Create" asp-controller="Questions" class="btn btn-outline-info">Add Questions</a>
+</p>
+<table class="table table-striped " style="table-layout: fixed;">
+    <thead>
+        <tr>
+            <th style="width: 40%">Qusetion</th>
+            <th style="width: 25%;overflow:hidden">Answer</th>
+            <th style="width: 35%;overflow:hidden"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Qs)
+        {            
+            <tr>
+                <td style="width: 40%;overflow:hidden"><div><b>@(index++)-</b> @item.Question1</div></td>
+                <td style="width: 25%;overflow:hidden">@item.Answer</td>
+                <td style="width: 35%;overflow:hidden">
+                    <a asp-action="Edit" asp-controller="Questions" asp-route-id="@item.Id" class="btn btn-outline-success">Edit</a> |
+                    <a asp-action="Details" asp-controller="Questions" asp-route-id="@item.Id" class="btn btn-outline-info">Details</a> |
+                    <a asp-action="Delete" asp-controller="Questions" asp-route-id="@item.Id" class="btn btn-danger">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

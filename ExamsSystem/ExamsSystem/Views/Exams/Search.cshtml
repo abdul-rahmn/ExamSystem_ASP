@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ExamsSystem.Models.Exam>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Exams</h1>
+@if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-outline-info">Create Exam</a>
+    </p>
+}
+
+    <a asp-action="Index" class="btn btn-outline-info">Back</a>
+
+
+<table class="table table-striped ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Course)
+            </th>
+            @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+            {
+                <th>Teacher</th>
+            }
+            @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.RegNo)
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                </td>
+                @if (User.IsInRole("Admin") || User.IsInRole("Student"))
+                {
+                    @if (item.Course.UserId == (ViewBag.idu))
+                    {
+                        <td><span>you</span></td>
+                    }else{
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.User.FirstName)
+                            @Html.DisplayFor(modelItem => item.Course.User.LastName)
+                        </td>
+                    }                    
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegNo)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-success">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <a asp-action="Test" asp-controller="Questions" asp-route-id="@item.Course.Id" class="btn btn-outline-success">View</a>
+                    }
+                    @if (User.IsInRole("Student"))
+                    {
+                        if (item.Date <= DateTime.Now)
+                        {
+                            <form asp-action="ConfirmNo" class="col">
+                                <label for="no" style="height:10%;">NO: </label>
+                                <input type="text" style="width:30%;height:10%;" name="no" />
+                                <input type="hidden" name="courseId" value="@item.Course.Id" />
+                                <input type="hidden" name="Date" value="@item.Date" />
+                                @*<a asp-action="Test" asp-controller="Questions" asp-route-id="@item.Course.Id" class="btn btn-outline-success">Start</a>*@
+                                <input type="submit" value="Enter" class="btn btn-outline-success" />
+                            </form>
+                        }
+                        else
+                        {
+                            <span style="color:darkred">The Exam doesn't Started yet</span>
+                        }
+                    }
+                    @*<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
